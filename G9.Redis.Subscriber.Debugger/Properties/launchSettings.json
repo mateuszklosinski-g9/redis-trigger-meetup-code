@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "G9.Redis.Subscriber.Debugger": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7019",
+      "launchBrowser": false
+    }
+  }
+}
