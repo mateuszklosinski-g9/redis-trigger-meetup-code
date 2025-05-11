@@ -1,16 +1,16 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using G9.Redis.Trigger;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace G9.Redis.Subscriber.Debugger
 {
-    public static class Function1
+    public static class RedisDebuggerFunction
     {
         [FunctionName("Function1")]
         public static async Task<IActionResult> Run(
@@ -31,5 +31,13 @@ namespace G9.Redis.Subscriber.Debugger
 
             return new OkObjectResult(responseMessage);
         }
-    }
+
+        [FunctionName("RedisDebugger")]
+        public static async Task ReceiveRedisMessages(
+			[RedisTrigger("test")] string message,
+			ILogger log)
+		{
+			log.LogInformation($"Received message: {message}");
+		}
+	}
 }
