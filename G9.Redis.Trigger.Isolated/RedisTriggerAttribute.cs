@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Worker.Extensions.Abstractions;
 
-[assembly: ExtensionInformation("G9.Redis.Trigger", "1.0.0")]
+[assembly: ExtensionInformation("G9.Redis.Trigger", "1.0.4")]
 
 namespace G9.Redis.Trigger.Isolated;
 
