@@ -1,0 +1,41 @@
+trigger:
+- main  # Runs pipeline when changes are pushed to main branch
+
+pool:
+  vmImage: 'windows-latest'  # Use a hosted Windows agent
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: 'latest'
+
+- task: NuGetToolInstaller@1  # Ensure NuGet CLI is installed
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/G9.Redis.Trigger.csproj'  # Restores only this project
+
+- task: VSBuild@1
+  inputs:
+    solution: '**/G9.Redis.Trigger.csproj'  # Builds only this project
+    msbuildArgs: '/p:Configuration=Release'
+    platform: 'Any CPU'
+    configuration: 'Release'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/G9.Redis.Trigger.nuspec'  # Packs only this project
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'BUILD_BUILDNUMBER'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '**/G9.Redis.Trigger*.nupkg'
+    nuGetFeedType: 'internal'
+    publishFeed: 'YourAzureArtifactsFeed'
+    allowPackageConflicts: true
+
