@@ -12,27 +12,18 @@ steps:
 
 - task: NuGetToolInstaller@1  # Ensure NuGet CLI is installed
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
     restoreSolution: '**/G9.Redis.Trigger*.csproj'
 
-- task: VSBuild@1
-  inputs:
-    solution: '**/G9.Redis.Trigger*.csproj'
-    msbuildArgs: '/p:Configuration=Release'
-    platform: 'Any CPU'
-    configuration: 'Release'
-
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/G9.Redis.Trigger*.csproj'
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'BUILD_BUILDNUMBER'
+    buildProperties: 'Configuration=Release;Version=${{ BUILD_BUILDNUMBER }};PackageVersion=${{ BUILD_BUILDNUMBER }}'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'push'
     packagesToPush: '**/G9.Redis.Trigger*.nupkg'
