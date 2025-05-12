@@ -21,7 +21,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/G9.Redis.Trigger*.csproj'
-    buildProperties: 'Configuration=Release;Version=${{ BUILD_BUILDNUMBER }};PackageVersion=${{ BUILD_BUILDNUMBER }}'
+    buildProperties: 'Configuration=Release;Version=${{ Build.BuildNumber }};PackageVersion=${{ Build.BuildNumber }}'
 
 - task: DotNetCoreCLI@2
   inputs:
