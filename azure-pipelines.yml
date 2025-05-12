@@ -15,19 +15,12 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/G9.Redis.Trigger.csproj'
-
-- task: VSBuild@1
-  inputs:
-    solution: '**/G9.Redis.Trigger.csproj'
-    msbuildArgs: '/p:Configuration=Release'
-    platform: 'Any CPU'
-    configuration: 'Release'
+    restoreSolution: '**/G9.Redis.Trigger*.csproj'
 
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/G9.Redis.Trigger.nuspec'
+    packagesToPack: '**/G9.Redis.Trigger*.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'BUILD_BUILDNUMBER'
 
