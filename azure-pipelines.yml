@@ -17,6 +17,14 @@ steps:
     command: 'restore'
     restoreSolution: '**/G9.Redis.Trigger*.csproj'
 
+- task: VSBuild@1
+  inputs:
+    solution: '**/G9.Redis.Trigger*.csproj'
+    msbuildArgs: '/p:Configuration=Release'
+    platform: 'Any CPU'
+    configuration: 'Release'
+
+
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
@@ -29,6 +37,6 @@ steps:
     command: 'push'
     packagesToPush: '**/G9.Redis.Trigger*.nupkg'
     nuGetFeedType: 'internal'
-    publishFeed: 'G9.Redis/g9-redis-feed'
+    publishVstsFeed: 'G9.Redis/g9-redis-feed'
     allowPackageConflicts: true
 
