@@ -8,7 +8,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: 'latest'
+    version: '9.x.x'
 
 - task: NuGetToolInstaller@1  # Ensure NuGet CLI is installed
 
