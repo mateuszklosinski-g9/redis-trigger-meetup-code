@@ -13,17 +13,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G9.Redis.Trigger", "G9.Redi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G9.Redis.Trigger.Isolated", "G9.Redis.Trigger.Isolated\G9.Redis.Trigger.Isolated.csproj", "{4A84A062-CCAB-498B-96F2-09B869FF90E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local-env", "local-env", "{2688BC3A-34E1-400B-880A-2D3DCFFF7841}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{4F3C95C3-6BD7-45FF-812A-F52A489CD727}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G9.Redis.Subscriber.Debugger", "G9.Redis.Subscriber.Debugger\G9.Redis.Subscriber.Debugger.csproj", "{39C6DB70-5760-41C5-A795-DA62A4090F0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
