@@ -1,14 +1,16 @@
-﻿namespace G9.Redis.Trigger;
+﻿using StackExchange.Redis;
+
+namespace G9.Redis.Trigger;
 
 public sealed class RedisTriggerContext
 {
-    public IServiceProvider ServiceProvider { get; }
+    public ConnectionMultiplexer ConnectionMultiplexer { get; }
     public RedisTriggerOptions Options { get; }
     public string Channel { get; }
 
-    public RedisTriggerContext(IServiceProvider serviceProvider, RedisTriggerOptions options, string subscriptionKey)
+    public RedisTriggerContext(ConnectionMultiplexer connectionMultiplexer, RedisTriggerOptions options, string subscriptionKey)
     {
-        ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        ConnectionMultiplexer = connectionMultiplexer ?? throw new ArgumentNullException(nameof(connectionMultiplexer));
         Options = options ?? throw new ArgumentNullException(nameof(options));
         Channel = subscriptionKey ?? throw new ArgumentNullException(nameof(subscriptionKey));
     }

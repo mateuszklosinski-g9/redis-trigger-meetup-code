@@ -8,11 +8,12 @@ namespace G9.Redis.Subscriber.Debugger
     public static class RedisDebuggerFunction
     {
         [FunctionName("RedisDebugger")]
-        public static async Task ReceiveRedisMessages(
+        public static Task ReceiveRedisMessages(
 			[RedisTrigger("test")] string message,
 			ILogger log)
 		{
 			log.LogInformation($"[Redis Subscriber Debugger] Received message: {message}");
+			return Task.CompletedTask;
 		}
 	}
 }

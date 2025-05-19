@@ -34,7 +34,8 @@ internal sealed class RedisTriggerBinding : ITriggerBinding
         return Task.FromResult<ITriggerData>(triggerData);
     }
 
-    public Task<IListener> CreateListenerAsync(ListenerFactoryContext context) => Task.FromResult<IListener>(new RedisListener(context.Executor, this.context));
+    public Task<IListener> CreateListenerAsync(ListenerFactoryContext context)
+        => Task.FromResult<IListener>(new RedisListener(context.Executor, this.context));
 
     public ParameterDescriptor ToParameterDescriptor()
     {
@@ -44,7 +45,7 @@ internal sealed class RedisTriggerBinding : ITriggerBinding
             DisplayHints = new ParameterDisplayHints
             {
                 Prompt = "Redis Trigger",
-                Description = "Trigger to subscribe for messages from a Pub/Sub Topic."
+                Description = "Trigger to subscribe for messages from a Pub/Sub Channel."
             }
         };
     }
