@@ -4,18 +4,20 @@ using StackExchange.Redis;
 
 namespace G9.Redis.Trigger;
 
-public sealed class RedisListener : IListener
+internal sealed class RedisListener : IListener
 {
     private readonly ITriggeredFunctionExecutor executor;
     private readonly RedisTriggerContext triggerContext;
-	private readonly ISubscriber subscriber;
+    private readonly ConnectionMultiplexer connectionMultiplexer;
+    private readonly ISubscriber subscriber;
 
 	public RedisListener(ITriggeredFunctionExecutor executor, RedisTriggerContext triggerContext)
     {
         this.executor = executor;
         this.triggerContext = triggerContext;
 
-        subscriber = triggerContext.ConnectionMultiplexer.GetSubscriber();
+        connectionMultiplexer = ConnectionMultiplexer.Connect(triggerContext.Options.ConnectionString);
+        subscriber = connectionMultiplexer.GetSubscriber();
 	}
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -41,5 +43,8 @@ public sealed class RedisListener : IListener
 
     public void Cancel() => subscriber.UnsubscribeAll();
 
-    public void Dispose() { }
+    public void Dispose()
+    {
+        connectionMultiplexer.Dispose();
+    }
 }

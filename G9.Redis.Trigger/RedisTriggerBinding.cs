@@ -11,10 +11,7 @@ internal sealed class RedisTriggerBinding : ITriggerBinding
 
     public Type TriggerValueType => typeof(string);
 
-    public IReadOnlyDictionary<string, Type> BindingDataContract => new Dictionary<string, Type>
-    {
-        { "data", typeof(string) }
-    };
+    public IReadOnlyDictionary<string, Type> BindingDataContract => new Dictionary<string, Type>();
 
     public RedisTriggerBinding(RedisTriggerContext context)
     {
@@ -23,13 +20,13 @@ internal sealed class RedisTriggerBinding : ITriggerBinding
 
     public Task<ITriggerData> BindAsync(object value, ValueBindingContext context)
     {
-        var valueProvider = new RedisValueBinder(value);
-        var bindingData = new Dictionary<string, object>
+		if (value is not string stringValue)
         {
-            { "data", value }
-        };
+			throw new InvalidOperationException("Redis trigger only supports string values.");
+		}
 
-        var triggerData = new TriggerData(valueProvider, bindingData);
+		var valueProvider = new RedisValueBinder(stringValue);
+        var triggerData = new TriggerData(valueProvider, new Dictionary<string, object>());
 
         return Task.FromResult<ITriggerData>(triggerData);
     }
